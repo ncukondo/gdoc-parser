@@ -24,8 +24,9 @@ const gdocToZip = (doc: GoogleAppsScript.Document.Document) => {
     },
     tableCell: (item, children, parents) => `${children.join("")}`,
   });
-  console.log(text);
-  const textFile = Utilities.newBlob(text, "text/plain", `${name}.txt`);
+  const resText = text.replace(/\n\n+/gm, "\n\n");
+  console.log(resText);
+  const textFile = Utilities.newBlob(resText, "text/plain", `${name}.txt`);
   const zipfile = Utilities.zip([textFile, ...images], `${name}.zip`);
   return zipfile;
 };
