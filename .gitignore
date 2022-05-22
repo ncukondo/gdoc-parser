@@ -83,5 +83,6 @@ typings/
 public/bundle/*
 
 .githubconfig
+.clasp.json
 
 dist

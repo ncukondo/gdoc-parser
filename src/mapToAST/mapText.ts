@@ -1,4 +1,4 @@
-import { fold } from "~/utils";
+import { fold } from "~/libs/utils";
 import type { BasicElement } from "~/gdocToAST";
 
 type TextAttr = "bold" | "italic" | "strikethrough";

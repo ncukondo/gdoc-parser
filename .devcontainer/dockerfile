@@ -12,9 +12,9 @@ RUN apk update && apk add git openssh
 COPY --from=builder /go/src/gh-cli/bin/gh /usr/local/bin/
 
 # add shell scripts e.g. create-react-app.sh
-COPY **/*.sh /usr/local/bin/
-RUN chmod u+x /usr/local/bin/*.sh
-ENV PATH $PATH:/usr/local/bin
+COPY .devcontainer/sh/* /usr/local/bin/scripts/
+RUN chmod u+x /usr/local/bin/scripts/*
+ENV PATH $PATH:/usr/local/bin/scripts
 
 
 # sudo using su-exec

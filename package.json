@@ -10,13 +10,10 @@
     "lint": "npx eslint --fix src/**/*.ts",
     "test": "jest",
     "clasp-login": "npx clasp login ../config/clasprc.json --no-localhost",
-    "clasp-create": "npx clasp create",
-    "clasp-list": "npx clasp list",
-    "clasp-clone": "npx clasp clone",
-    "preversion": "yarn build",
+    "preversion": "yarn build && node make_clasp_json.js",
     "postversion": "git push --tags && git push origin main",
     "build": "yarn lint && rimraf dist && rollup -c && cpx src/appsscript.json dist && cpx js/**/*.js dist",
-    "deploy": "yarn build && npx clasp push"
+    "deploy": "yarn build && node make_clasp_json.js && npx clasp push"
   },
   "dependencies": {},
   "devDependencies": {
@@ -31,6 +28,7 @@
     "@typescript-eslint/eslint-plugin": "^5.24.0",
     "@typescript-eslint/parser": "^5.24.0",
     "cpx": "^1.5.0",
+    "dotenv": "^16.0.1",
     "eslint": "^8.15.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-prettier": "^6.11.0",

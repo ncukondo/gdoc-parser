@@ -1,4 +1,4 @@
-import { range } from "~/utils";
+import { range } from "~/libs/utils";
 import { mapTree } from "~/libs/treeUtils";
 import type { Tree } from "~/libs/treeUtils";
 import { mapText } from "~/mapToAST/mapText";
