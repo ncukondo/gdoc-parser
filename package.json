@@ -1,6 +1,6 @@
 {
   "name": "@ncukondo/gdoc-parser",
-  "version": "1.1.10",
+  "version": "1.0.1",
   "main": "./dist/index.js",
   "author": "Takeshi Kondo",
   "license": "MIT",
@@ -14,16 +14,15 @@
     "clasp-list": "npx clasp list",
     "clasp-clone": "npx clasp clone",
     "preversion": "yarn build",
-    "postversion": "git push --tags && git push origin master",
+    "postversion": "git push --tags && git push origin main",
     "build": "yarn lint && rimraf dist && rollup -c && cpx src/appsscript.json dist && cpx js/**/*.js dist",
     "deploy": "yarn build && npx clasp push"
   },
-  "dependencies": {
-    "@rollup/plugin-alias": "^3.1.9"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@google/clasp": "^2.3.0",
     "@jo12bar/rollup-plugin-hoist-entry-exports-to-global-scope": "^1.0.3",
+    "@rollup/plugin-alias": "^3.1.9",
     "@rollup/plugin-babel": "^5.2.2",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.1",
