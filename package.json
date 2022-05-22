@@ -11,9 +11,9 @@
     "test": "jest",
     "clasp-login": "npx clasp login ../config/clasprc.json --no-localhost",
     "preversion": "yarn build && node make_clasp_json.js",
-    "postversion": "git push --tags && git push origin main",
+    "postversion": "git push --tags && git push origin main && rimraf .clasp.json",
     "build": "yarn lint && rimraf dist && rollup -c && cpx src/appsscript.json dist && cpx js/**/*.js dist",
-    "deploy": "yarn build && node make_clasp_json.js && npx clasp push",
+    "deploy": "yarn build && node make_clasp_json.js && npx clasp push && rimraf .clasp.json",
     "release": "yarn version"
   },
   "dependencies": {},
