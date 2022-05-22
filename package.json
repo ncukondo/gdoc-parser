@@ -4,7 +4,11 @@
   "main": "./dist/index.js",
   "author": "Takeshi Kondo",
   "license": "MIT",
-  "homepage": "https://github.com/ncukondo/gdoc-parser",
+  "homepage": "https://script.google.com/home/projects/1U8EJiwIHHVtTJxR95EX5mirZMWkarT67T9b9UdrOblHxEys_GgiZKavm/edit",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ncukondo/gdoc-parser.git"
+  },
   "scripts": {
     "lint:init": "npx eslint --init",
     "lint": "npx eslint --fix src/**/*.ts",
