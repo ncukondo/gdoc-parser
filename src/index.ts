@@ -1,14 +1,26 @@
-import { gdocToZip } from "~/gdocToZip";
+import { gdocToZip as _gdocToZip } from "~/gdocToZip";
+import { gdocToAST as _gdocToAST } from "~/gdocToAST";
+import { gdocToMarkdown as _gdocToMarkdown, Mapper } from "~/gdocToMarkdown";
+import { gdocToText as _gdocToText } from "~/gdocToText";
 
-export function testgdocToText() {
-  const doc = DocumentApp.getActiveDocument();
-  const zipFile = gdocToZip(doc);
-  DriveApp.getFolderById("1nlpJV8pU0FwyhBUoG2ngCulalaDuh9Gt").createFile(
-    zipFile
-  );
+export function gdocToZip(doc: GoogleAppsScript.Document.Document) {
+  return _gdocToZip(doc);
 }
 
-export { gdocToZip } from "~/gdocToZip";
-export { gdocToAST } from "~/gdocToAST";
-export { gdocToMarkdown } from "~/gdocToMarkdown";
-export { gdocToText } from "~/gdocToText";
+export function gdocToAST(doc: GoogleAppsScript.Document.Document) {
+  return _gdocToAST(doc);
+}
+
+export function gdocToMarkdown(
+  doc: GoogleAppsScript.Document.Document,
+  mapper?: Mapper
+) {
+  return _gdocToMarkdown(doc, mapper);
+}
+
+export function gdocToText(
+  doc: GoogleAppsScript.Document.Document,
+  mapper?: Mapper
+) {
+  return _gdocToText(doc, mapper);
+}
