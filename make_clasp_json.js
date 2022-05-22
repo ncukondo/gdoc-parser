@@ -1,5 +1,4 @@
 const fs = require("fs");
-require("dotenv").config();
 
 const clasp_json = {
   scriptId: process.env.CLASP_SCRIPT_ID,

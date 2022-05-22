@@ -15,7 +15,7 @@ Parse google document and make text, markdown, and zipFile.
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/)
-- [google/clasp](https://github.com/google/clasp)
+- [Docker](https://www.docker.com/)
 
 ## Getting Started
 
@@ -79,15 +79,3 @@ yarn run deploy
 ```
 yarn release
 ```
-
-## Advanced
-
-### Using Es6 with Apps Script
-
-[Using Es6 with Apps Script](http://ramblings.mcpher.com/Home/excelquirks/gassnips/es6shim)
-
-## Others
-
-### howdy39/gas-clasp-library
-
-This repository is created based on [howdy39/gas-clasp-library](https://github.com/howdy39/gas-clasp-library).
