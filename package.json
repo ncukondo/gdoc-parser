@@ -1,6 +1,6 @@
 {
   "name": "@ncukondo/gdoc-parser",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "./dist/index.js",
   "author": "Takeshi Kondo",
   "license": "MIT",
@@ -14,7 +14,8 @@
     "postversion": "git push --tags && git push origin main && rimraf .clasp.json",
     "build": "yarn lint && rimraf dist && rollup -c && cpx src/appsscript.json dist && cpx js/**/*.js dist",
     "deploy": "yarn build && node make_clasp_json.js && npx clasp push && rimraf .clasp.json",
-    "release": "yarn version"
+    "release": "yarn version",
+    "update_env": "sh .devcontainer/sh/register-dot-env-github"
   },
   "dependencies": {},
   "devDependencies": {
