@@ -35,15 +35,18 @@ yarn
 
 ### Configuration
 
-#### Open `.clasp.json`, change scriptId
+#### Make `.env` in root folder, and input as followed
 
 What is scriptId ? https://github.com/google/clasp#scriptid-required
 
 ```
-{
-  "scriptId": <your_script_id>,
-  "rootDir": "dist"
-}
+CLASP_SCRIPT_ID=<your script id>
+CLASPRC_ACCESS_TOKEN=<from clasprc.json>
+CLASPRC_CLIENT_ID=<from clasprc.json>
+CLASPRC_CLIENT_SECRET=<from clasprc.json>
+CLASPRC_EXPIRY_DATE=<from clasprc.json>
+CLASPRC_ID_TOKEN=<from clasprc.json>
+CLASPRC_REFRESH_TOKEN=<from clasprc.json>
 ```
 
 #### Open `src/appsscript.json`, change timeZone (optional)
@@ -74,7 +77,7 @@ yarn run deploy
 ### Deploy using Github workflow
 
 ```
-yarn version
+yarn release
 ```
 
 ## Advanced

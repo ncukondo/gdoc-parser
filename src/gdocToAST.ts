@@ -71,8 +71,6 @@ const getType = (el: GdocElement) => {
 const mapToAST = (tree: Tree<GdocElement>) => {
   return mapTree<GdocElement, Element>(tree, (item, parents, hasChildren) => {
     const itemType = getType(item);
-    const text = itemType === "TEXT" ? item.asText().getText() : "";
-    console.log(parents.map((p) => "  ").join("") + itemType + ": " + text);
     switch (itemType) {
       case "TEXT":
         return mapText(item.asText());
