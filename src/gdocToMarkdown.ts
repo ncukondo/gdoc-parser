@@ -33,8 +33,6 @@ const gdocToMarkdown = (
         return `- ${children.join("")}\n`;
       case "image":
         return `![${item.name || "image"}](type:${item.contentType})`;
-      case "container":
-        return `other container :[${item.gdocType}]: ${children.join("")}`;
       case "other":
         return `other :[${item.gdocType}]`;
       case "table":

@@ -3,11 +3,8 @@ import { mapTree } from "~/libs/treeUtils";
 import type { Tree } from "~/libs/treeUtils";
 import { mapText } from "~/mapToAST/mapText";
 import type { TextElement } from "~/mapToAST/mapText";
-import { mapOther, mapOtherContainer } from "~/mapToAST/mapOther";
-import type {
-  OtherContainerElement,
-  OtherLeafElement,
-} from "~/mapToAST/mapOther";
+import { mapOther } from "~/mapToAST/mapOther";
+import type { OtherElement } from "~/mapToAST/mapOther";
 import { mapList } from "~/mapToAST/mapList";
 import type { ListElement } from "~/mapToAST/mapList";
 import {
@@ -40,8 +37,7 @@ type BasicElement<T extends string, U extends GdocElement> = {
 
 type Element =
   | TextElement
-  | OtherLeafElement
-  | OtherContainerElement
+  | OtherElement
   | ListElement
   | TableCellElement
   | TableElement
@@ -91,7 +87,7 @@ const mapToAST = (tree: Tree<GdocElement>) => {
       case "BODY_SECTION":
         return mapBody(item.asBody());
     }
-    return isContainer(item) ? mapOtherContainer(item) : mapOther(item);
+    return mapOther(item, isContainer(item));
   });
 };
 
@@ -110,4 +106,10 @@ const gdocToAST = (doc: Document) => {
 };
 
 export { gdocToAST };
-export type { BasicElement, GdocElement, ContainerElement, Element };
+export type {
+  BasicElement,
+  GdocElement,
+  ContainerElement,
+  Element,
+  GdocElementType,
+};

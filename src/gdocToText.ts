@@ -33,10 +33,12 @@ const gdocToText = (
         return `- ${children.join("")}\n`;
       case "image":
         return `![${item.name || "image"}](type:${item.contentType})`;
-      case "container":
-        return `other container :[${item.gdocType}]: ${children.join("")}`;
       case "other":
-        return `other :[${item.gdocType}]`;
+        switch (item.gdocType) {
+          case "PAGE_BREAK":
+            return "\n\n___\n\n";
+        }
+        return `other :[${item.gdocType}(isContainer:${item.isContainer})]`;
     }
     return children.join("");
   }).join("");

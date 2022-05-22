@@ -1,27 +1,19 @@
-import type { BasicElement, GdocElement, ContainerElement } from "~/gdocToAST";
+import type { GdocElement, GdocElementType, BasicElement } from "~/gdocToAST";
 
-type OtherLeafElement = BasicElement<"other", GdocElement> & {
-  gdocType: string;
-};
-type OtherContainerElement = BasicElement<"container", ContainerElement> & {
-  gdocType: string;
+type OtherElement = BasicElement<"other", GdocElement> & {
+  gdocElm: GdocElement;
+  isContainer: boolean;
+  gdocType: GdocElementType;
 };
 
-const mapOther = (gdocElm: GdocElement) => {
+const mapOther = (gdocElm: GdocElement, isContainer: boolean) => {
   return {
     type: "other",
+    isContainer,
     gdocElm,
     gdocType: gdocElm.getType().toString(),
-  } as OtherLeafElement;
+  } as OtherElement;
 };
 
-const mapOtherContainer = (gdocElm: ContainerElement) => {
-  return {
-    type: "container",
-    gdocElm,
-    gdocType: gdocElm.getType().toString(),
-  } as OtherContainerElement;
-};
-
-export { mapOther, mapOtherContainer };
-export type { OtherContainerElement, OtherLeafElement };
+export { mapOther };
+export type { OtherElement };
