@@ -10,11 +10,12 @@ type ListType = "ordered" | "unordered";
 
 const isOrderedList = (el: GdocListElement) => {
   return (
-    el.getGlyphType() === DocumentApp.GlyphType.NUMBER ||
-    DocumentApp.GlyphType.ROMAN_LOWER ||
-    DocumentApp.GlyphType.ROMAN_UPPER ||
-    DocumentApp.GlyphType.LATIN_LOWER ||
-    DocumentApp.GlyphType.LATIN_UPPER
+    el.getGlyphType() ===
+    (DocumentApp.GlyphType.NUMBER ||
+      DocumentApp.GlyphType.ROMAN_LOWER ||
+      DocumentApp.GlyphType.ROMAN_UPPER ||
+      DocumentApp.GlyphType.LATIN_LOWER ||
+      DocumentApp.GlyphType.LATIN_UPPER)
   );
 };
 
