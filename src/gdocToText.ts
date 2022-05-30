@@ -9,8 +9,12 @@ type Mapper = Partial<{
   ) => string;
 }>;
 
-const repeat = (char: string, len: number) =>
-  [...Array(len)].map((_) => char).join("");
+const isInInlineParagragh = (parents: Element[]) => {
+  if (parents.length <= 1) return false;
+  const parent = parents[parents.length - 1];
+  if (parent.type === "tableCell" && parent.monoCell) return false;
+  return parent.type === "tableCell" || parent.type === "list";
+};
 
 const gdocToText = (
   doc: GoogleAppsScript.Document.Document,
@@ -25,14 +29,13 @@ const gdocToText = (
       case "text":
         return item.text;
       case "heading":
-        const heading = `${repeat("#", item.level)} `;
+        const heading = "#".repeat(item.level) + ` `;
         const title = children.join("");
         return title ? `${heading}${title}\n\n` : "";
       case "paragraph":
         const paraText = children.join("");
-        return parents.length <= 2 && paraText !== ""
-          ? `${paraText}\n\n`
-          : paraText;
+        if (isInInlineParagragh(parents)) return paraText;
+        return paraText !== "" ? `${paraText}\n\n` : paraText;
       case "list":
         const mark = item.listType === "ordered" ? "1." : "-";
         const listText = item.last

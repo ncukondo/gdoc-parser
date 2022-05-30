@@ -8,7 +8,9 @@ type TableRowElement = BasicElement<"tableRow", GdocTableRowElement> & {
   first: boolean;
   last: boolean;
 };
-type TableCellElement = BasicElement<"tableCell", GdocTableCellElement>;
+type TableCellElement = BasicElement<"tableCell", GdocTableCellElement> & {
+  monoCell: boolean;
+};
 
 const mapTable: (el: GdocTableElement) => TableElement = (el) => {
   const gdocElm = el;
@@ -25,7 +27,14 @@ const mapTableRow: (el: GdocTableRowElement) => TableRowElement = (el) => {
 };
 const mapTableCell: (el: GdocTableCellElement) => TableCellElement = (el) => {
   const gdocElm = el;
-  return { type: "tableCell", gdocElm };
+  const row = el?.getParent();
+  const monoRow =
+    row?.getPreviousSibling()?.getType().toString() !== "TABLE_ROW" &&
+    row?.getNextSibling()?.getType().toString() !== "TABLE_ROW";
+  const monoCell =
+    el.getPreviousSibling()?.getType().toString() !== "TABLE_CELL" &&
+    el.getNextSibling()?.getType().toString() !== "TABLE_CELL";
+  return { type: "tableCell", gdocElm, monoCell: monoRow && monoCell };
 };
 export { mapTable, mapTableRow, mapTableCell };
 export type { TableCellElement, TableElement, TableRowElement };
