@@ -50,8 +50,8 @@ const gdocToBlobs = (
   });
   const resText = text.replace(/\n\n+/gm, "\n\n");
   console.log(resText);
-  const textFile = Utilities.newBlob(resText, "text/plain", `${name}.txt`);
-  return [textFile, ...getImages()];
+  const markdown = Utilities.newBlob(resText, "text/markdown", `${name}.md`);
+  return [markdown, ...getImages()];
 };
 
 export { gdocToBlobs };
