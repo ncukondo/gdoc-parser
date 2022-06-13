@@ -32,6 +32,7 @@ const gdocToBlobs = (
   filename: string = ""
 ) => {
   const name = filename || doc.getName().split(".")[0];
+  console.log(`name: ${name}`);
   const { addImage, getImages } = imageProcessor(name);
   const text = gdocToText(doc, {
     image: (item, children, parents) => {
