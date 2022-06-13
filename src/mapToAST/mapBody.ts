@@ -1,11 +1,10 @@
 import type { BasicElement } from "~/gdocToAST";
 
 type GdocBodyElement = GoogleAppsScript.Document.Body;
-type BodyElement = BasicElement<"body", GdocBodyElement>;
+type BodyElement = BasicElement<"body">;
 
 const mapBody: (el: GdocBodyElement) => BodyElement = (el) => {
-  const gdocElm = el;
-  return { type: "body", gdocElm };
+  return { type: "body" };
 };
 
 export { mapBody };

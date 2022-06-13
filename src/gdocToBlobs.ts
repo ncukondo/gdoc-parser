@@ -3,15 +3,11 @@ import { gdocToText } from "~/gdocToText";
 const imageProcessor = (dirname: string) => {
   let imageCounter = 0;
   let images: GoogleAppsScript.Base.Blob[] = [];
-  const addImage = (
-    mimeType: string,
-    alt: string,
-    blob: GoogleAppsScript.Base.Blob
-  ) => {
+  const addImage = (mimeType: string, alt: string, bytes: number[]) => {
     imageCounter++;
     const ext = mimeType.split("/")[1];
     const filename = `${dirname}/image${imageCounter}.${ext}`;
-    const image = blob.setName(filename);
+    const image = Utilities.newBlob(bytes).setName(filename);
     images.push(image);
     return `![${alt}](${filename})`;
   };
@@ -21,12 +17,25 @@ const imageProcessor = (dirname: string) => {
   return { addImage, getImages };
 };
 
-const gdocToBlobs = (doc: GoogleAppsScript.Document.Document) => {
-  const name = doc.getName().split(".")[0];
+const extractMetaInfo = (text: string) => {
+  const reg = /^--- *$(.+?)^--- *$/gms;
+  const meta = [...text.matchAll(reg)]
+    .map((v) => v[1])
+    .join("")
+    .replaceAll(/^\n/gm, "");
+  const rest = text.replaceAll(reg, "");
+  return { text: rest, metaInfo: meta };
+};
+
+const gdocToBlobs = (
+  doc: GoogleAppsScript.Document.Document,
+  filename: string = ""
+) => {
+  const name = filename || doc.getName().split(".")[0];
   const { addImage, getImages } = imageProcessor(name);
   const text = gdocToText(doc, {
     image: (item, children, parents) => {
-      return addImage(item.contentType, name, item.blob);
+      return addImage(item.contentType, name, item.bytes);
     },
     table: (item, children, parents) => `${children.join("")}\n`,
     tableRow: (item, children, parents) => {

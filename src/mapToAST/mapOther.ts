@@ -1,6 +1,6 @@
 import type { GdocElement, GdocElementType, BasicElement } from "~/gdocToAST";
 
-type OtherElement = BasicElement<"other", GdocElement> & {
+type OtherElement = BasicElement<"other"> & {
   gdocElm: GdocElement;
   isContainer: boolean;
   gdocType: GdocElementType;
@@ -10,7 +10,6 @@ const mapOther = (gdocElm: GdocElement, isContainer: boolean) => {
   return {
     type: "other",
     isContainer,
-    gdocElm,
     gdocType: gdocElm.getType().toString(),
   } as OtherElement;
 };

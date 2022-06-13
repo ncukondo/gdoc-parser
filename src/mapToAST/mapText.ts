@@ -2,7 +2,7 @@ import { fold } from "~/libs/utils";
 import type { BasicElement } from "~/gdocToAST";
 
 type TextAttr = "bold" | "italic" | "strikethrough";
-type TextElement = BasicElement<"text", GoogleAppsScript.Document.Text> & {
+type TextElement = BasicElement<"text"> & {
   attrs: { start: number; end: number; attrs: TextAttr[]; link?: string }[];
   text: string;
 };
@@ -43,7 +43,6 @@ const mapText = (el: GoogleAppsScript.Document.Text) => {
     type: "text",
     text,
     attrs,
-    gdocElm: el,
   } as TextElement;
 };
 

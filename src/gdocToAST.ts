@@ -30,9 +30,8 @@ type ContainerElement = GdocElement & {
   getChild(childIndex: number): GoogleAppsScript.Document.Element;
 };
 type GdocElementType = keyof typeof DocumentApp.ElementType;
-type BasicElement<T extends string, U extends GdocElement> = {
+type BasicElement<T extends string> = {
   type: T;
-  gdocElm: U;
 };
 
 type Element =

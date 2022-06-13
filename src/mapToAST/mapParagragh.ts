@@ -1,11 +1,10 @@
 import type { BasicElement } from "~/gdocToAST";
 
 type GdocParagraghElement = GoogleAppsScript.Document.Paragraph;
-type ParagraphElement = BasicElement<"paragraph", GdocParagraghElement>;
+type ParagraphElement = BasicElement<"paragraph">;
 
 const mapParagraph: (el: GdocParagraghElement) => ParagraphElement = (el) => {
-  const gdocElm = el;
-  return { type: "paragraph", gdocElm };
+  return { type: "paragraph" };
 };
 
 export { mapParagraph };
