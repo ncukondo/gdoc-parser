@@ -8,8 +8,11 @@ export function gdocToZip(doc: GoogleAppsScript.Document.Document) {
   return _gdocToZip(doc);
 }
 
-export function gdocToBlobs(doc: GoogleAppsScript.Document.Document) {
-  return _gdocToBlobs(doc);
+export function gdocToBlobs(
+  doc: GoogleAppsScript.Document.Document,
+  filename: string = ""
+) {
+  return _gdocToBlobs(doc, filename);
 }
 
 export function gdocToAST(doc: GoogleAppsScript.Document.Document) {
