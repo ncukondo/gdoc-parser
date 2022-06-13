@@ -31,17 +31,15 @@ const gdocToText = (
       case "heading":
         const heading = "#".repeat(item.level) + ` `;
         const title = children.join("");
-        return title ? `${heading}${title}\n\n` : "";
+        return title ? `\n${heading}${title}\n\n` : "";
       case "paragraph":
         const paraText = children.join("");
-        if (isInInlineParagragh(parents)) return paraText;
-        return paraText !== "" ? `${paraText}\n\n` : paraText;
+        return isInInlineParagragh(parents) ? paraText : paraText + "\n";
       case "list":
         const mark = item.listType === "ordered" ? "1." : "-";
-        const listText = item.last
-          ? `${children.join("")}\n\n`
-          : `${children.join("")}\n`;
-        return `${mark} ${listText}`;
+        return `${item.first ? "\n" : ""}${mark} ${children.join("")}\n${
+          item.last ? "\n" : ""
+        }`;
       case "image":
         return `![${item.name || "image"}](type:${item.contentType})`;
       case "other":
