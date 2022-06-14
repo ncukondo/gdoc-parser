@@ -1,6 +1,6 @@
 {
   "name": "@ncukondo/gdoc-parser",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "main": "./dist/index.js",
   "author": "Takeshi Kondo",
   "license": "MIT",
