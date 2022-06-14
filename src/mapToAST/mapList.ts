@@ -5,6 +5,7 @@ type ListElement = BasicElement<"list"> & {
   listType: ListType;
   first: boolean;
   last: boolean;
+  indent: number;
 };
 type ListType = "ordered" | "unordered";
 
@@ -24,7 +25,8 @@ const mapList = (el: GdocListElement) => {
   const last =
     el.getNextSibling()?.getType() !== DocumentApp.ElementType.LIST_ITEM;
   const listType: ListType = isOrderedList(el) ? "ordered" : "unordered";
-  return { type: "list", first, last, listType } as ListElement;
+  const indent = Math.floor(el.getIndentStart() / 36) - 1;
+  return { type: "list", first, last, listType, indent } as ListElement;
 };
 
 export { mapList };

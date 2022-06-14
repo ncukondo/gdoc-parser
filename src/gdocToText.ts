@@ -37,8 +37,9 @@ const gdocToText = (
         return paraText + "\n";
       case "list":
         const mark = item.listType === "ordered" ? "1." : "-";
+        const listHead = "   ".repeat(item.indent) + mark;
         const listText = children.join("").trim().replaceAll("\n", "<br>");
-        return `${item.first ? "\n" : ""}${mark} ${listText}\n${
+        return `${item.first ? "\n" : ""}${listHead} ${listText}\n${
           item.last ? "\n" : ""
         }`;
       case "image":
