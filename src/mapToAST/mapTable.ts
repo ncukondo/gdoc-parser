@@ -3,17 +3,23 @@ import type { BasicElement } from "~/gdocToAST";
 type GdocTableElement = GoogleAppsScript.Document.Table;
 type GdocTableRowElement = GoogleAppsScript.Document.TableRow;
 type GdocTableCellElement = GoogleAppsScript.Document.TableCell;
-type TableElement = BasicElement<"table">;
+type TableElement = BasicElement<"table"> & {
+  monoCell: boolean;
+};
 type TableRowElement = BasicElement<"tableRow"> & {
   first: boolean;
   last: boolean;
+  monoCell: boolean;
 };
 type TableCellElement = BasicElement<"tableCell"> & {
   monoCell: boolean;
 };
 
 const mapTable: (el: GdocTableElement) => TableElement = (el) => {
-  return { type: "table" };
+  const monoCell =
+    el.getNumChildren() === 1 &&
+    el.getChild(0).asTableRow().getNumChildren() === 1;
+  return { type: "table", monoCell };
 };
 
 const mapTableRow: (el: GdocTableRowElement) => TableRowElement = (el) => {
@@ -21,7 +27,8 @@ const mapTableRow: (el: GdocTableRowElement) => TableRowElement = (el) => {
     el.getPreviousSibling()?.getType().toString() !== "TABLE_ROW" ?? false;
   const last =
     el.getNextSibling()?.getType().toString() !== "TABLE_ROW" ?? false;
-  return { type: "tableRow", first, last };
+  const monoCell = first && last && el.getNumChildren() === 1;
+  return { type: "tableRow", first, last, monoCell };
 };
 const mapTableCell: (el: GdocTableCellElement) => TableCellElement = (el) => {
   const row = el?.getParent();

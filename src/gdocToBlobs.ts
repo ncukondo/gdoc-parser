@@ -39,19 +39,23 @@ const gdocToBlobs = (
     },
     table: (item, children, parents) => `${children.join("")}\n`,
     tableRow: (item, children, parents) => {
-      if (item.first && item.last)
-        return `::: {.note}\n${children.join("")}\n:::\n`;
-      const split = item.first
-        ? `| ${children.map((v) => "").join("-- | --")} |\n`
-        : "";
+      if (item.monoCell) return `::: {.note}\n${children.join("")}\n:::\n`;
+      const split = item.first ? `|${" -- |".repeat(children.length)}\n` : "";
       return `| ${children.join(" | ")} |\n${split}`;
     },
-    tableCell: (item, children, parents) => `${children.join("")}`,
+    tableCell: (item, children, parents) =>
+      children.join("").trim().replaceAll("\n", "<br>"),
   });
   const resText = text.replace(/\n\n+/gm, "\n\n");
-  console.log(resText);
-  const markdown = Utilities.newBlob(resText, "text/markdown", `${name}.md`);
-  return [markdown, ...getImages()];
+  const { text: markdownText, metaInfo } = extractMetaInfo(resText);
+  console.log(markdownText);
+  const markdown = Utilities.newBlob(
+    markdownText,
+    "text/markdown",
+    `${name}.md`
+  );
+  const meta = Utilities.newBlob(metaInfo, "text/plain", `${name}/meta.yaml`);
+  return [markdown, meta, ...getImages()];
 };
 
 export { gdocToBlobs };

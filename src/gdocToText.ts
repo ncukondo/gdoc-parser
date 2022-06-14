@@ -34,10 +34,11 @@ const gdocToText = (
         return title ? `\n${heading}${title}\n\n` : "";
       case "paragraph":
         const paraText = children.join("");
-        return isInInlineParagragh(parents) ? paraText : paraText + "\n";
+        return paraText + "\n";
       case "list":
         const mark = item.listType === "ordered" ? "1." : "-";
-        return `${item.first ? "\n" : ""}${mark} ${children.join("")}\n${
+        const listText = children.join("").trim().replaceAll("\n", "<br>");
+        return `${item.first ? "\n" : ""}${mark} ${listText}\n${
           item.last ? "\n" : ""
         }`;
       case "image":
