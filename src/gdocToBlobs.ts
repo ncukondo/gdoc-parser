@@ -1,15 +1,22 @@
 import { gdocToText } from "~/gdocToText";
 
+type ImageInfo = {
+  contentType: string;
+  alt: string;
+  width: number;
+  bytes: number[];
+};
+
 const imageProcessor = (dirname: string) => {
   let imageCounter = 0;
   let images: GoogleAppsScript.Base.Blob[] = [];
-  const addImage = (mimeType: string, alt: string, bytes: number[]) => {
+  const addImage = ({ contentType, alt, bytes, width }: ImageInfo) => {
     imageCounter++;
-    const ext = mimeType.split("/")[1];
+    const ext = contentType.split("/")[1];
     const filename = `${dirname}/image${imageCounter}.${ext}`;
     const image = Utilities.newBlob(bytes).setName(filename);
     images.push(image);
-    return `![${alt}](${filename})`;
+    return `![${alt}](${filename}){width=${width}}`;
   };
   const getImages = () => {
     return [...images];
@@ -35,7 +42,7 @@ const gdocToBlobs = (
   const { addImage, getImages } = imageProcessor(name);
   const text = gdocToText(doc, {
     image: (item, children, parents) => {
-      return addImage(item.contentType, name, item.bytes);
+      return addImage({ ...item, alt: name });
     },
     table: (item, children, parents) => `${children.join("")}\n`,
     tableRow: (item, children, parents) => {
