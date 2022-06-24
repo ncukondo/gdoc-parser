@@ -25,7 +25,7 @@ const mapList = (el: GdocListElement) => {
   const last =
     el.getNextSibling()?.getType() !== DocumentApp.ElementType.LIST_ITEM;
   const listType: ListType = isOrderedList(el) ? "ordered" : "unordered";
-  const indent = Math.floor(el.getIndentStart() / 36) - 1;
+  const indent = Math.max(Math.floor(el.getIndentStart() / 36) - 1, 0);
   return { type: "list", first, last, listType, indent } as ListElement;
 };
 
