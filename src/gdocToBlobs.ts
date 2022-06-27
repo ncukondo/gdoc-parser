@@ -16,7 +16,7 @@ const imageProcessor = (dirname: string) => {
     const filename = `${dirname}/image${imageCounter}.${ext}`;
     const image = Utilities.newBlob(bytes).setName(filename);
     images.push(image);
-    return `![${alt}](${filename}){width=${width}}`;
+    return `\n\n![${alt}](${filename}){width=${width}}\n\n`;
   };
   const getImages = () => {
     return [...images];
@@ -51,7 +51,10 @@ const gdocToBlobs = (
       return `| ${children.join(" | ")} |\n${split}`;
     },
     tableCell: (item, children, parents) =>
-      children.join("").trim().replaceAll("\n|\r", "<br>"),
+      children
+        .join("")
+        .trim()
+        .replaceAll(/(\n|\r)+/g, "<br>"),
   });
   const resText = text.replace(/\n\n+/gm, "\n\n");
   const { text: markdownText, metaInfo } = extractMetaInfo(resText);
