@@ -47,7 +47,7 @@ const gdocToText = (
       case "other":
         switch (item.gdocType) {
           case "PAGE_BREAK":
-            return "\n\n___\n\n";
+            return "\n\n\n\n";
         }
         return `other :[${item.gdocType}(isContainer:${item.isContainer})]`;
     }

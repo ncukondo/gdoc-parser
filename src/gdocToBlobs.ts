@@ -51,7 +51,7 @@ const gdocToBlobs = (
       return `| ${children.join(" | ")} |\n${split}`;
     },
     tableCell: (item, children, parents) =>
-      children.join("").trim().replaceAll("\n", "<br>"),
+      children.join("").trim().replaceAll("\n|\r", "<br>"),
   });
   const resText = text.replace(/\n\n+/gm, "\n\n");
   const { text: markdownText, metaInfo } = extractMetaInfo(resText);
